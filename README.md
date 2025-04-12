@@ -61,14 +61,12 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 1. **Access the Application:** Open your web browser and navigate to `http://localhost:8080`.
 2. **Login/Register:**
-    * If you are a new user, look for a "Register" or "Sign Up" link to create an account. You will typically need to provide a username and password.
+    * If you are a new user, look for a "Register" link to create an account. You will need to provide a username, email and password.
     * If you already have an account, enter your credentials on the login page.
-3. **View Todo List:** After logging in, you should be directed to your main todo list page, displaying your current tasks.
-4. **Add a Task:** Find the input field or button (e.g., "Add Task", "+") to create a new todo item. Enter the task description and submit.
+3. **View Todo List:** After logging in, you should be directed to your main todo list page, displaying the dashboard containing list of tasks.
+4. **Add a Task:** Find the green input button ("+") to create a new task. Enter the task description with a due date and click submit.
 5. **Manage Tasks:**
-    * **Mark as Complete:** Tasks usually have a checkbox or button to mark them as done.
-    * **Edit Task:** (If implemented) There might be an edit icon or button to modify the task description.
-    * **Delete Task:** Look for a delete icon (like a trash can) or button next to each task to remove it.
-6.**Logout:** When finished, find the "Logout" or "Sign Out" link, usually in the navigation bar or user menu.
-
-// ...existing code...
+    * **Mark as Complete:** Tasks have an icon to mark them as done.
+    * **Edit Task:** There is an edit icon to modify the task description.
+    * **Delete Task:** Look for a delete icon next to each task to remove it.
+6.**Logout:** When finished, find the "Logout out" button in the bottom-left corrner.
