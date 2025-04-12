@@ -6,6 +6,8 @@ import com.karolbystrek.todo.rails.elite.model.Task;
 import com.karolbystrek.todo.rails.elite.repository.TaskRepository;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,9 +16,9 @@ import java.util.Optional;
 
 @Service
 public class TaskService {
-    private final TaskRepository taskRepository;
 
-    // TODO 16: Log Exceptions. Use SLF4J to log exceptions in the service and controller layers.
+    private final Logger logger;
+    private final TaskRepository taskRepository;
 
     /**
      * Constructs a TaskService with the required repository.
@@ -24,6 +26,7 @@ public class TaskService {
      * @param taskRepository The repository for task operations
      */
     public TaskService(TaskRepository taskRepository) {
+        this.logger = LoggerFactory.getLogger(TaskService.class);
         this.taskRepository = taskRepository;
     }
 
@@ -36,6 +39,7 @@ public class TaskService {
      */
     public Task addTask(@NotNull(message = "Task cannot be null") Task task) throws ResourceAlreadyExistsException {
         if (taskRepository.findByTitle(task.getTitle()).isPresent()) {
+            logger.error("Task with title '{}' already exists", task.getTitle());
             throw new ResourceAlreadyExistsException("Task with title '" + task.getTitle() + "' already exists");
         }
         return taskRepository.save(task);
@@ -96,6 +100,7 @@ public class TaskService {
     public Task updateTask(@NotNull(message = "Task cannot be null") Task task) throws ResourceNotFoundException {
         Optional<Task> existingTask = taskRepository.findByTitle(task.getTitle());
         if (existingTask.isEmpty()) {
+            logger.error("Task with title '{}' does not exist", task.getTitle());
             throw new ResourceNotFoundException("Task not found with title: " + task.getTitle());
         }
         Task taskToUpdate = existingTask.get();
@@ -115,6 +120,7 @@ public class TaskService {
     public void deleteTask(@NotNull(message = "Task cannot be null") Task task) throws ResourceNotFoundException {
         Optional<Task> taskByTitle = taskRepository.findByTitle(task.getTitle());
         if (taskByTitle.isEmpty()) {
+            logger.error("Task with title '{}' does not exist", task.getTitle());
             throw new ResourceNotFoundException("Task not found with title: " + task.getTitle());
         }
         taskRepository.delete(task);
